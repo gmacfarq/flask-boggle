@@ -39,11 +39,12 @@ class BoggleAppTestCase(TestCase):
             response = client.post('/api/new-game')
             # get the response body as json using .get_json()
             json = response.get_json()
-            # breakpoint()
             # test that the game_id is a string
             self.assertIsInstance(json["gameId"], str)
             # test that the board is a list
+            self.assertIsInstance(json["board"], list)
             # test that the game_id is in the dictionary of games (imported from app.py above)
+            self.assertIn(json['gameId'], games)
 
     def test_score_word(self):
         """Test if word is valid"""
