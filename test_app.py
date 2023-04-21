@@ -23,8 +23,12 @@ class BoggleAppTestCase(TestCase):
 
         with self.client as client:
             response = client.get('/')
-            ...
             # test that you're getting a template
+
+            html = response.get_data(as_text=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('<!-- testing root route -->', html)
+
 
     def test_api_new_game(self):
         """Test starting a new game."""
@@ -32,8 +36,12 @@ class BoggleAppTestCase(TestCase):
         with self.client as client:
             ...
             # make a post request to /api/new-game
+            response = client.post('/api/new-game')
             # get the response body as json using .get_json()
+            json = response.get_json()
+            # breakpoint()
             # test that the game_id is a string
+            self.assertIsInstance(json["gameId"], str)
             # test that the board is a list
             # test that the game_id is in the dictionary of games (imported from app.py above)
 
