@@ -52,8 +52,12 @@ class BoggleAppTestCase(TestCase):
         with self.client as client:
             ...
             # make a post request to /api/new-game
+            response = client.post('/api/new-game')
             # get the response body as json using .get_json()
+            json = response.get_json()
             # find that game in the dictionary of games (imported from app.py above)
+            game = games[json['gameId']]
+
 
             # manually change the game board's rows so they are not random
 

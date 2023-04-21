@@ -35,13 +35,18 @@ def get_score():
     """accept a POST request with JSON for the game id and the word.
        It should check if the word is legal"""
 
-    if #the word is not in word_list :
-        return {result: "not-word"}
-    if #the word is not findable on board :
-        return {result: "not-on-board"}
-    return {result: "ok"}
+    # get the form data word input 
+    word = request.json["word"]
+    game_id = request.json["gameId"]
+    game = games[game_id] 
+    print('word ===>', word)
 
-
+    if not game.is_word_in_word_list(word):
+        result = {"result": "not-word"}
+    elif not game.check_word_on_board(word):
+        result = {"result": "not-on-board"}
+    else:
+        result = {"result": "ok"}
 
     return jsonify(result)
 
